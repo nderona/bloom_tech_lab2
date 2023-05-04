@@ -1,0 +1,296 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.topLeft p, .topRight a {
+    margin: 5px 5px !important;
+}
+
+.topLeft p:first-child, .topRight a:first-child {
+    margin: 5px 5px 5px 0 !important;
+}
+
+.top-nav {
+    color: #686868 !important;
+}
+#bitcoin {
+    z-index: 2;
+    position: fixed;
+    top: 13%;
+    left: -200px;
+    cursor: pointer;
+    transition: all .6s;
+}
+
+    #bitcoin img {
+        width: 35px;
+        height: 35px;
+        margin: auto 0;
+    }
+
+#btcPrice {
+    text-align: center;
+    padding: 0 4px;
+    margin: auto !important;
+    transition: opacity .3s;
+}
+
+/* BTC Responsiveness */
+@media (max-width: 1007px) {
+    #bitcoin {
+        flex-direction: column;
+        align-items: center;
+        width: 112px;
+    }
+
+    #btcPrice {
+        background: #fff;
+        padding: 3px;
+    }
+}
+
+
+header + .container {
+    width: 1800px;
+}
+
+.user-option {
+    margin: 0 5px;
+    width: 20px;
+    align-self: center;
+}
+
+.menu-item {
+    padding: 5px;
+    width: fit-content;
+    border: none;
+    background: transparent;
+}
+
+/*To remove that stoopid border on click*/
+button:focus {
+    outline: none !important;
+}
+
+.dropbtn {
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-nav {
+    position: relative;
+}
+
+.dropdown-content {
+    opacity: 0;
+    pointer-events: none;
+    /*display: none;*/
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    top: 55px;
+    left: 0;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    width: max-content;
+    transition: all 0.2s;
+}
+
+    .dropdown-content :is(button, a) {
+        width: 100%;
+    }
+
+    .dropdown-content a {
+        float: none;
+        color: black;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+.logout:hover {
+    background-color: #d96161;
+}
+
+.my-profile:hover {
+    background-color: #6193d9;
+}
+
+.show {
+    pointer-events: all;
+    display: block;
+    opacity: 100%;
+}
+
+h1 {
+    width: 250px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.view-all {
+    width: 100px;
+    padding: 10px 8px 10px 8px;
+    border-radius: 12px;
+    color: #000;
+    background: #F5F5F5;
+    transition: 0.2s;
+    transition-property: color, background;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22.5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+    .view-all:hover {
+        background: #d96161;
+        color: #fff;
+    }
+
+.product-container {
+    position: relative;
+    border: 3px solid #D1D1D1;
+    border-radius: 12px;
+    width: 270px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    transition: box-shadow 0.2s;
+}
+
+    .product-container:hover {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+
+
+.products-title {
+    margin-top: 150px;
+    font-size: 36px;
+}
+
+.all-products {
+    flex-wrap: wrap;
+    width: 82.1%;
+    justify-content: center;
+    height: auto;
+    display: flex;
+}
+
+.product-name {
+    font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.
+
+.aDiv {
+    background: #ebebeb;
+    border: 1px solid #f5f5f5;
+    transition: box-shadow 0.2s;
+    margin: 10px 0;
+    padding: 5px;
+    color: black;
+    letter-spacing: 1px;
+    font-weight: 400;
+}
+
+    .aDiv:hover {
+        color: black;
+        box-shadow: 1px 1px 6px #e4e4e4;
+    }
+
+.product-description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-container a {
+    position: relative;
+}
+
+.product-container img {
+    width: 100%;
+    height: 230px;
+    margin-bottom: 25px;
+    object-fit: scale-down;
+}
+
+.add-to-cart svg {
+    width: 25px;
+    height: 25px;
+}
+
+.buy-now {
+    border: 2px solid #A34F4F;
+    border-radius: 12px;
+    background: #F75E5E;
+    color: white;
+    transition: border-color 0.2s;
+}
+
+    .buy-now:hover {
+        border-color: #653232;
+        color: white;
+    }
+
+.reportBlock {
+    z-index: 2;
+    align-items: center;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 0px 5px;
+    cursor: pointer;
+}
+
+    .reportBlock a {
+        color: #909090;
+    }
+
+        .reportBlock a:hover {
+            color: #F75E5E;
+        }
+
+.filterDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-stock {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto 0;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 12px 12px 0 0;
+}
+
+@media (max-width: 821px) {
+    .products-main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .products-title {
+        margin: 0 0 20px 0;
+    }
+}

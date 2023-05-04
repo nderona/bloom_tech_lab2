@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if( SignInManager.IsSignedIn( User ) )
+    {
+        <li class="nav-item">
+        </li>
+        <li class="nav-item user-option">
+            <a asp-area="User" asp-controller="ShoppingCart" asp-action="Index">
+                <svg viewBox="0 0 512 512" enable-background="new 0 0 512 512">
+                    <g>
+                        <g>
+                            <path d="m485.7,198.5c-10.7-13.4-25.3-20.8-41.1-20.8h-36.1c-3.4-92.6-70.5-166.7-152.5-166.7-82,0-149.1,74.1-152.5,166.7h-36.1c-15.8,0-30.4,7.4-41.1,20.8-13.5,16.8-18.4,40.2-13.3,62.7l43.3,190.8c6.5,28.8 28.9,49 54.4,49h290.5c25.5,0 47.9-20.1 54.4-49l43.4-190.8c5.1-22.5 0.2-45.9-13.3-62.7zm-229.7-146.7c59.6-1.42109e-14 108.4,55.8 111.6,125.9h-223.2c3.2-70 52-125.9 111.6-125.9zm203.2,200.3l-43.3,190.9c-2.2,9.8-8.5,17.2-14.6,17.2h-290.6c-6.1,0-12.4-7.4-14.6-17.2l-43.3-190.9c-2.3-10.1-3.7-33.6 14.6-33.6h377.2c19.7,0 16.9,23.5 14.6,33.6z" />
+                            <path d="m154.7,259.1c-11.3,0-20.4,9.1-20.4,20.4v127.5c0,11.3 9.1,20.4 20.4,20.4 11.3,0 20.4-9.1 20.4-20.4v-127.5c0.1-11.2-9.1-20.4-20.4-20.4z" />
+                            <path d="m253.6,259.1c-11.3,0-20.4,9.1-20.4,20.4v127.5c0,11.3 9.1,20.4 20.4,20.4 11.3,0 20.4-9.1 20.4-20.4v-127.5c0-11.2-9.2-20.4-20.4-20.4z" />
+                            <path d="m352.4,259.1c-11.3,0-20.4,9.1-20.4,20.4v127.5c0,11.3 9.1,20.4 20.4,20.4 11.3,0 20.4-9.1 20.4-20.4v-127.5c5.68434e-14-11.2-9.1-20.4-20.4-20.4z" />
+                        </g>
+                    </g>
+                </svg>
+            </a>
+        </li>
+        <li class="nav-item user-option" id="profileOption">
+            <button class="dropbtn" onclick="dropDown()">
+                <svg class="user-option" x="0px" y="0px" viewBox="0 0 490.1 490.1" style="enable-background:new 0 0 490.1 490.1;">
+                    <g>
+                        <g>
+                            <path d="M245,261.75c71.9,0,131.4-57.3,131.4-130.3S316.9,0.05,245,0.05s-131.4,57.3-131.4,130.3S173.1,261.75,245,261.75z
+			 M245,40.75c50,0,90.7,40.7,90.7,89.7s-40.7,89.6-90.7,89.6s-90.7-40.7-90.7-89.7S195,40.75,245,40.75z" />
+                            <path d="M333.6,274.25c-8.3-2.1-16.7,0-21.9,6.3l-66.7,76.1l-66.7-76.1c-5.2-6.3-14.6-8.3-21.9-6.3C61.5,305.55,0,382.65,0,469.15
+			c0,11.5,9.4,20.9,20.9,20.9h448.3c11.5,0,20.9-9.4,20.9-20.9C490,382.65,428.5,305.55,333.6,274.25z M42.7,449.35
+			c8.4-57.3,50.1-106.3,114.7-131.3l73,83.4c7.3,9.4,22.9,9.4,30.2,0l73-83.4c63.6,25,106.4,75,114.7,131.3H42.7z" />
+                        </g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                </svg>
+            </button>
+            <div class="dropdown-content" id="myDropdown">
+
+                <a class="menu-item my-profile" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My Profile</a>
+                <a class="menu-item purchase-history" asp-area="User" asp-controller="PurchaseHistory" asp-action="Index" title="Manage">Purchase History</a>
+                <a class="menu-item my-profile" asp-area="User" asp-controller="UserHome" asp-action="AvailableCoupons" title="Manage">My Coupons</a>
+
+                @{
+                    var user = await UserManager.GetUserAsync( User );
+                }
+
+                @if( await UserManager.IsInRoleAsync( user, "Admin" ) )
+                {
+                    <a class="menu-item my-profile" asp-area="Admin" asp-controller="AdminHome" asp-action="AdminPanel" title="Manage">Admin Area</a>
+                }
+
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="menu-item logout">Logout</button>
+                </form>
+            </div>
+        </li>
+
+        @*<li class="nav-item">
+    <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+    <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+    </form>
+    </li>*@
+
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link not-logged" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link not-logged" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>
+
+
+<script>
+    function dropDown() {
+        document.getElementById("myDropdown").classList.toggle("show");
+        //document.getElementById( "myDropdown" ).style.display = "block";
+    }
+
+
+</script>

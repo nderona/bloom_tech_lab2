@@ -1,0 +1,223 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Lato");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@300;400;500&display=swap');
+
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+
+.register-container {
+    width: 100%;
+    display: flex;
+    padding: 0;
+    border: 2px solid #d1d1d1;
+    border-width: 2px 2px 2px 2px;
+} .register-container img {
+      width: 65%;
+      object-fit: cover;
+  }
+
+#register {
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    padding: 10px;
+}
+
+#register, .register-container {
+    border-radius: 0 12px 12px 0;
+}
+
+.register-container {
+    transition: box-shadow 200ms ease-in-out;
+    overflow-wrap: normal;
+}
+
+.register-container:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.form-control {
+    border-color: #d1d1d1;
+    transition: all 0.2s;
+    outline: none !important;
+}
+
+    .form-control:focus {
+        border-radius: 12px;
+        box-shadow: 0 0 10px #26964d;
+        box-shadow: 0 0 5px #86B9F5;
+        border: 1px solid #07f;
+    }
+
+.select {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-width: 200px;
+}
+
+    .select svg {
+        position: absolute;
+        right: 14px;
+        top: calc(70% - 3px);
+        width: 10px;
+        height: 6px;
+        stroke-width: 2px;
+        stroke: #9098a9;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        pointer-events: none;
+    }
+
+    .select select {
+        -webkit-appearance: none;
+        padding: 7px 40px 7px 12px;
+        width: fit-content;
+        border: 1px solid #e8eaed;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 1px 3px -2px #9098a9;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 16px;
+        transition: all 150ms ease;
+    }
+
+        .select select:required:invalid {
+            color: #5a667f;
+        }
+
+        .select select option {
+            color: #223254;
+        }
+
+            .select select option[value=""][disabled] {
+                display: none;
+            }
+
+        .select select:focus {
+            outline: none;
+            border-color: #07f;
+            box-shadow: 0 0 0 2px rgba(0,119,255,0.2);
+        }
+
+        .select select:hover + svg {
+            stroke: #07f;
+        }
+
+.sprites {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    user-select: none;
+}
+.bate-birth {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+    /*.bate-birth :is(label, input) {
+        width: 100%;
+    }*/
+
+button[type="submit"] {
+    display: flex;
+    margin: 0 auto;
+    /* border-radius: 12px;
+    background-color: #26964d;
+    border-color: transparent;*/
+    border: 2px solid #d1d1d1;
+    border-radius: 12px;
+    transition: background, color, border-color, 200ms ease-in-out;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+button[type="submit"]:hover {
+    background: #1281ff;
+    border-color: #000;
+    color: #fff;
+    padding: .375rem 1rem;
+}
+
+
+.main-search {
+    height: 30px;
+    width: 270px;
+    border: none;
+    border-radius: 12px;
+    padding: 0 8px;
+    background: none;
+    outline: none;
+}
+    .main-search:focus {
+        border-color: inherit !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        background: none !important;
+        border: none !important;
+    }
+
+    .main-search::placeholder {
+        color: #A9A9A9;
+    }
+
+
+
+/* VALIDATION */
+
+.validation-summary-errors {
+    position: absolute;
+    right: -245px;
+}
+    .validation-summary-errors ul {
+        list-style: none;
+    }
+
+.form-group {
+    position: relative;
+}
+
+    .form-group span span {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+
+/* RESPONSIVENESS */
+
+@media screen and (max-width: 991px) {
+    .date-birth, .form-control {
+        width: 220px;
+    }
+} 
+@media screen and (max-width: 768px) {
+    .register-container, form {
+        border-radius: 12px;
+    }
+
+    form {
+        border-width: 2px;
+    }
+    .form-control {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    main {
+        width: fit-content;
+        margin: auto;
+    }
+
+    .form-control {
+        width: 250px;
+    }
+}

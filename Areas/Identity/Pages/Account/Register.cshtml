@@ -1,0 +1,187 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData[ "Title" ] = "Register";
+}
+
+@section Styles {
+    <link href="~/css/register.css" rel="stylesheet" />
+    <link href="~/css/util.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<div class="register-container container mt-5">
+    <img class="d-none d-md-block" src="~/images/SubLogo.png" alt="register" />
+    <form id="register" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <h2>Sign Up</h2>
+        <hr />
+        @*<div asp-validation-summary="All" class="text-danger"></div>*@
+        <div class="form-group">
+            <label asp-for="Input.Name">Name*</label>
+            <input asp-for="Input.Name" class="form-control" placeholder="John" />
+            <span asp-validation-for="Input.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Surname">Surname*</label>
+            <input asp-for="Input.Surname" class="form-control" placeholder="Doe" />
+            <span asp-validation-for="Input.Surname" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Email">Email*</label>
+            <input asp-for="Input.Email" class="form-control" placeholder="john@doe.com" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Password">Password*</label>
+            <input asp-for="Input.Password" class="form-control" placeholder="********" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.ConfirmPassword"></label>
+            <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="********" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="form-group select d-flex flex-column">
+            <label asp-for="Input.City">City*</label>
+            <select asp-for="Input.City">
+                <option value="" disabled="disabled" selected="selected">
+                    Select City
+                </option>
+                <option value="Prishtinë">
+                    Prishtinë
+                </option>
+                <option value="Deçan">
+                    Deçan
+                </option>
+                <option value="Dragash">
+                    Dragash
+                </option>
+                <option value="Ferizaj">
+                    Ferizaj
+                </option>
+                <option value="Fushë Kosovë">
+                    Fushë Kosovë
+                </option>
+                <option value="Gjakovë">
+                    Gjakovë
+                </option>
+                <option value="Gjilan">
+                    Gjilan
+                </option>
+                <option value="Gllogoc">
+                    Gllogoc
+                </option>
+                <option value="Graçanicë">
+                    Graçanicë
+                </option>
+                <option value="Hani i Elezit">
+                    Hani i Elezit
+                </option>
+                <option value="Istog">
+                    Istog
+                </option>
+                <option value="Junik">
+                    Junik
+                </option>
+                <option value="Kaçanik">
+                    Kaçanik
+                </option>
+                <option value="Kamenicë">
+                    Kamenicë
+                </option>
+                <option value="Klinë">
+                    Klinë
+                </option>
+                <option value="Kllokoti">
+                    Kllokoti
+                </option>
+                <option value="Leposaviq">
+                    Leposaviq
+                </option>
+                <option value="Lipjan">
+                    Lipjan
+                </option>
+                <option value="Malishevë">
+                    Malishevë
+                </option>
+                <option value="Mamush">
+                    Mamush
+                </option>
+                <option value="Mitrovicë">
+                    Mitrovicë
+                </option>
+                <option value="Novobërdë">
+                    Novobërdë
+                </option>
+                <option value="Obilic">
+                    Obilic
+                </option>
+                <option value="Partesh">
+                    Partesh
+                </option>
+                <option value="Pejë">
+                    Pejë
+                </option>
+                <option value="Podujevë">
+                    Podujevë
+                </option>
+                <option value="Prizren">
+                    Prizren
+                </option>
+                <option value="Rahovec">
+                    Rahovec
+                </option>
+                <option value="Ranillug">
+                    Ranillug
+                </option>
+                <option value="Shtërpcë">
+                    Shtërpcë
+                </option>
+                <option value="Shtime">
+                    Shtime
+                </option>
+                <option value="Skënderaj">
+                    Skënderaj
+                </option>
+                <option value="Suharek">
+                    Suharek
+                </option>
+                <option value="Viti">
+                    Viti
+                </option>
+                <option value="Vushtri">
+                    Vushtri
+                </option>
+                <option value="Zubin Potok">
+                    Zubin Potok
+                </option>
+                <option value="Zveçan">
+                    Zveçan
+                </option>
+
+            </select>
+            <svg>
+                <use xlink:href="#select-arrow-down"></use>
+            </svg>
+            <svg class="sprites">
+                <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                    <polyline points="1 1 5 5 9 1"></polyline>
+                </symbol>
+            </svg>
+            <span asp-validation-for="Input.City" class="text-danger"></span>
+        </div>
+        <div class="form-group bate-birth">
+            <label asp-for="Input.DateOfBirth">Date of Birth*</label>
+            <input asp-for="Input.DateOfBirth" class="form-control " />
+            <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-submit">Create Account</button>
+    </form>
+
+
+
+</div>
