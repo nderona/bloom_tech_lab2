@@ -1,0 +1,129 @@
+﻿@{
+    var productId = @ViewData["ProductId"];
+    
+
+}
+<script src="https://js.stripe.com/v3/"></script>
+<main>
+    <form id="payment-form" data-secret="@ViewData["ClientSecret"]">
+
+        <input type="text" name="name" id="city" value="" required placeholder="City" />
+        <input type="text" name="name" id="line1" value="" required placeholder="Address1" />
+        <input type="text" name="name" id="line2" value="" required placeholder="Address2" />
+        <input type="tel" name="name" id="phoneNumber" value="" required placeholder="Phone Number" />
+        <div id="card-element">
+            <!-- Elements will create input elements here -->
+        </div>
+        <!-- We'll put the error messages in this element -->
+        <div id="card-errors" role="alert"></div>
+
+        <button id="card-button">Submit Payment</button>
+    </form>
+</main>
+
+
+
+
+
+<script>
+    var stripe = Stripe('pk_test_51J1sdwAhs74rsCWnF7HV7b7ll7LZlYXS9QJonE1r0V9rGs4SMfj9dMJfG2mlPrCVErXBao3vg4Swlum4BwDjf3R600NhGHO2IV');
+
+
+    var elements = stripe.elements();
+    var style = {
+        base: {
+            color: '#303238',
+            fontSize: '16px',
+            fontFamily: '"Open Sans", sans-serif',
+            fontSmoothing: 'antialiased',
+            '::placeholder': {
+                color: '#CFD7DF',
+            },
+        },
+        invalid: {
+            color: '#e5424d',
+            ':focus': {
+                color: '#303238',
+            },
+        },
+    };
+
+
+    var card = elements.create("card", { style: style });
+    card.mount("#card-element");
+    card.on('change', ({ error }) => {
+        let displayError = document.getElementById('card-errors');
+        if (error) {
+            displayError.textContent = error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+
+
+    var form = document.getElementById('payment-form');
+
+    form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var cityVal = $("#city").val();
+        var line1Val = $("#line1").val();
+        var line2Val = $("#line2").val();
+        var phoneVal = $("#phoneNumber").val();
+        
+        $.ajax({
+                type: "POST",
+                url: "@Url.Action("InStock")",
+                data: { id: '@productId'},
+                dataType: "text",
+                success: function (msg) {
+                    if (msg === "true") {
+                        stripe.confirmCardPayment(form.dataset.secret, {
+                            payment_method: {
+                                card: card,
+                                billing_details: {
+                                    address: {
+                                        city: cityVal,
+                                        line1: line1Val,
+                                        line2: line2Val,
+                                    },
+                                    phone: phoneVal,
+                                }
+                            }
+                        }).then(function (result) {
+                            if (result.error) {
+                                alert(result.error.message);
+                            } else {
+                                if (result.paymentIntent.status === 'succeeded') {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "@Url.Action("PostPurchase")",
+                                        data: { productId: '@productId', intent: result.paymentIntent},
+                                        dataType: "text",
+                                        success: function (msg) {
+                                            if (msg === "true") {
+                                                console.log("TEST");
+                                            } else if (msg === "false") {
+                                                console.log("OKBUDDYHOLOLIVE");
+                                            } else {
+                                                console.log("Testingu.");
+                                            }
+                                        },
+                                        error: function (req, status, error) {
+                                            console.log(msg);
+                                        }
+                                    });
+                                console.log("Successful purchase.");
+                                }
+                            }
+                        });
+                    } else if (msg === "false") {
+                        alert("Product is not in stock.");
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+    });
+</script>

@@ -48,7 +48,7 @@
                           string encodedDefaultImage = Convert.ToBase64String(Model.DefaultImage);
                           string defaultImage = string.Format("data:image/gif;base64,{0}",encodedDefaultImage);
 
-                          @if (Model.Quantity == 0) {
+                          @if(Model.Quantity == 0) {
                             @*<div class="no-stock">
                               <p>Out of stock</p>
                             </div>*@
