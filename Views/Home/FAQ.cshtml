@@ -1,0 +1,201 @@
+﻿<style>
+  .faqHeader {
+    font-size: 27px;
+    margin: 20px;
+  }
+
+  .panel-heading [data-toggle="collapse"]:after {
+    font-family: 'Glyphicons Halflings';
+    content: "e072"; /* "play" icon */
+    float: right;
+    color: #F58723;
+    font-size: 18px;
+    line-height: 22px;
+    /* rotate "play" icon from > (right arrow) to down arrow */
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+
+  .panel-heading [data-toggle="collapse"].collapsed:after {
+    /* rotate "play" icon from > (right arrow) to ^ (up arrow) */
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    color: #454444;
+  }
+
+  .topLeft p {
+    margin: 5px 5px !important;
+  }
+
+    .topLeft p:first-child {
+      margin: 5px 5px 5px 0 !important;
+    }
+</style>
+
+@section Styles {
+  <link href="~/css/homePage.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+}
+
+
+
+<div class="container" style="background-color:#f7f7f7; padding:2em; border-radius:10px;">
+  <h1 class="my-4" style="width:100%; text-align:center; letter-spacing:0.3em;">FREQUENTLY ASKED QUESTIONS</h1>
+  <br />
+  <br />
+  <br />
+
+  <div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    This section contains a wealth of information, related to <strong>TechPetal</strong> and its store. If you cannot find an answer to your question,
+    make sure to contact us.
+  </div>
+
+  <br />
+
+  <div class="panel-group" id="accordion">
+    <div class="faqHeader">1</div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Is account registration required?</a>
+        </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <h4>
+            Account registration at <strong>TechPetal</strong> is only required if you will be buying products.
+            This ensures a valid communication channel in any transactions.
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">Can I submit my Products?</a>
+        </h4>
+      </div>
+      <div id="collapseTen" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4> No, you can not. You can only buy the products posted by the admins of the page.</h4>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">What is the currency used for all transactions?</a>
+        </h4>
+      </div>
+      <div id="collapseEleven" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4> All prices for our products are in <strong>EUR</strong></h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="faqHeader">2</div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Who cen sell items?</a>
+        </h4>
+      </div>
+      <div id="collapseTwo" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4> Products are received directly from the brands/companies and then sold in our website.</h4>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">I want to buy a product - what are the steps?</a>
+        </h4>
+      </div>
+      <div id="collapseThree" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>The steps involved in this process are really simple. All you need to do is:</h4>
+          <ul>
+            <li>Register an account</li>
+            <li>Activate your account</li>
+            <li>Search a Product</li>
+            <li>Select a Product</li>
+            <li>Add it to Cart (optional)</li>
+            <li>Choose a Payment Method (Card/Cash)</li>
+            <li>Give the required information</li>
+            <li>Buy the Product</li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">Why buy my products here?</a>
+        </h4>
+      </div>
+      <div id="collapseSix" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>There are a number of reasons why you should join us:</h4>
+          <ul>
+            <li>We ensure quality</li>
+            <li>Fast response/approval times</li>
+            <li>Real-time Chat</li>
+            <li>Coupons (discounts) after a number of purchases</li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">What are the payment options?</a>
+        </h4>
+      </div>
+      <div id="collapseEight" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>The best way to transfer funds is via Paypal. This secure platform ensures timely payments and a secure environment.</h4>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="faqHeader">3</div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">Can I get a refund?</a>
+        </h4>
+      </div>
+      <div id="collapseSeven" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>No you can not. But you can report a product and we will make sure to change it if there's a hardware problem.</h4>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">Can I talk with a staff member?</a>
+        </h4>
+      </div>
+      <div id="collapseSeven" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>Yes, we have the option of Real Chat, and the Contact Page.</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
