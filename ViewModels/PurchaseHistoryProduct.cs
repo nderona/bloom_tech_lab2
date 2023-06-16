@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TechPetal_Lab.ViewModels
+namespace BloomTech.ViewModels
 {
     public class PurchaseHistoryProduct
     {

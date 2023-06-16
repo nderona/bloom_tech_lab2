@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TechPetal_Lab.Models
+namespace BloomTech.Models
 {
     public class Time
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TechPetal_Lab.Models
+namespace BloomTech.Models
 {
     public class Address
     {

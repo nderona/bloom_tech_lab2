@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using TechPetal_Lab.ViewModels;
+using BloomTech.ViewModels;
 
-namespace TechPetal_Lab.Models
+namespace BloomTech.Models
 {
     public class ProductMapper : Profile
     {

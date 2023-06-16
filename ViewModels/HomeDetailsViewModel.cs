@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using TechPetal_Lab.Models;
-namespace TechPetal_Lab.ViewModels
+using BloomTech.Models;
+namespace BloomTech.ViewModels
 {
     public class HomeDetailsViewModel
     {

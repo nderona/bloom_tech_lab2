@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TechPetal_Lab.ViewModels
+namespace BloomTech.ViewModels
 {
     public class ProductViewModel
     {
