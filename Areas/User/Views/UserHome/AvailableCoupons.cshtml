@@ -1,0 +1,39 @@
+﻿@model List<UserCoupon>
+
+
+<main>
+    @if (Model.Any())
+    {
+        <div class="container">
+            <div class="container" style="width:80%">
+                <h1 class="title" style="margin: 0 auto;">MY COUPONS</h1>
+                <p>Use the coupon on the shopping cart for discounts on the products you want to buy!</p>
+                <table class="table table-striped text-center">
+
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Discount</th>
+                            <th scope="col">Expires at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var coupon in Model)
+                        {
+                            <tr>
+                                <td>@coupon.Coupon.Name</td>
+                                <td>@coupon.Coupon.Discount% Off!</td>
+                                <td>@coupon.Coupon.ExpireDate</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+
+    }
+</main>
+

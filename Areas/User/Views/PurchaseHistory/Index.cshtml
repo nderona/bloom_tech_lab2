@@ -1,0 +1,36 @@
+﻿@model List<PurchaseHistoryProduct>
+
+    <head>
+        <link href="~/css/custom.css" rel="stylesheet" />
+    </head>
+    <h1 class="title" style="width:100%;">MY PURCHASE HISTORY</h1>
+    <div class="container" style="background-color: #f7f7f7; width:50%">
+
+        <ul class="list-group list-group-flush" width="50%">
+            @foreach (var product in Model)
+            {
+                string encoded = Convert.ToBase64String(product.DefaultImage);
+                string photo = string.Format("data:image/gif;base64,{0}", encoded);
+
+<li class="list-group-item" style="box-shadow: 1px -1px 5px 6px rgba(169,149,149,0.75); -webkit-box-shadow: 1px -1px 5px 6px rgba(169,149,149,0.75); -moz-box-shadow: 1px -1px 5px 6px rgba(169,149,149,0.75); margin:1em 0px">
+
+    <div>
+        <a asp-area="" asp-controller="Home" asp-action="Product" asp-route-id="@product.ProductId">
+            <img src="@photo" style="width: 10%; min-width:200px; height:200px; display: block; object-fit: scale-down; display: block; margin-left: auto; margin-right: auto;" />
+        </a>
+    </div>
+    <h5 class="d-flex justify-content-center my-2">@product.Name</h5>
+    <div class="container d-flex justify-content-center">
+        <h6 class="m-2">Amount bought: @product.AmountBought</h6>
+        @if (product.Reviewed)
+        {
+    <a asp-controller="PurchaseHistory" asp-action="EditReview" asp-route-ReviewId="@product.ReviewedId" class="btn reviewbtn">Edit review</a> }
+else
+{
+    <a asp-controller="PurchaseHistory" asp-action="AddReview" asp-route-ProductId="@product.ProductId" class="btn addreviewbtn">Add Review</a>}
+    </div>
+</li>
+}
+
+        </ul>
+    </div>

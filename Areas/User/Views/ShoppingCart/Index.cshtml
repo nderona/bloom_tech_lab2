@@ -1,0 +1,167 @@
+﻿@model ShoppingCartViewModel
+<link rel="stylesheet" href="~/css/ShoppingCart.css" />
+
+    <div style="min-height:1000px;" class="container-fluid">
+        <div class="shoppingCart-container">
+            <br />
+            <h2>@ViewBag.user.Name's Shopping Cart</h2>
+            <br />
+            <div class="row">
+                <div class="col-lg-8">
+                    <table class="table table-bordered tb-shadow" style="width:100%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var pr in Model.shoppingCart) {
+                                string encoded = Convert.ToBase64String(pr.Product.DefaultImage);
+                                string photo = string.Format("data:image/gif;base64,{0}", encoded);
+
+                            <tr>
+                                <td class="text-center"><img style="height: 80px;" src="@photo" /></td>
+                                <td class="emriP" style="">@pr.Product.Name</td>
+                                @if (pr.Product.Sale != 0)
+                                {
+                                    var priceAfterSale = (pr.Product.Price - (pr.Product.Price * (pr.Product.Sale * (decimal)0.01)));
+                                    <td class="text-center">@priceAfterSale EUR<span style="font-weight:bold;">(@pr.Product.Sale% Off!)</span></td>
+                                }
+                                else if (pr.Coupon != null)
+                                {
+                                    var priceAfterCoupon = (pr.Product.Price - (pr.Product.Price * (pr.Coupon.Discount * (decimal)0.01)));
+                                    <td class="text-center">@priceAfterCoupon EUR<span style="font-weight:bold;">(@pr.Coupon.Discount% Off from the coupon!)</span></td>
+                                }
+                                else
+                                {
+                                    <td class="text-center">@pr.Product.Price EUR</td>
+
+                                }
+                                <td class="text-center justify-content-center">
+                                    <div class="q-box">
+                                        <a onclick="DecreaseQuantity('@pr.Id')" class="quantity-link bg-white">-</a>
+                                        <span id="@pr.Id">@pr.Quantity</span>
+                                        <a onclick="IncreaseQuantity('@pr.Id')" class="quantity-link bg-white">+</a>
+                                    </div>
+                                    <div style="margin:20px auto; border: 2px solid black; box-shadow: 1px 1px 6px black; width: 80%;" class="bg-white">
+                                        <span>@pr.Product.Quantity in stock</span>
+                                    </div>
+
+                                </td>
+                                <td class="text-center">
+                                    <a asp-area="User" asp-controller="ShoppingCart" asp-action="RemoveFromCart" asp-route-id="@pr.Id" class="btn btn-danger">X</a>
+                                </td>
+                            </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-lg-3">
+                    <div>
+                        <table class="table table-bordered tb-shadow">
+                            <thead class="thead-dark">
+                                <tr class="text-center">
+                                <th>Payment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class=" pay-box">
+                                            <form class="form-group d-flex" asp-action="ApplyCoupon">
+                                                <input type="text" placeholder="Coupon Name..." name="couponName"/>
+                                                <button class="btn btn-info">Apply</button>
+                                            </form>
+                                            <div>
+                                                @if (Model.coupon != null)
+                                                {
+                                                    <p>Coupon applied: <span style="font-weight: bold;">@Model.coupon.Name (@Model.coupon.Discount% Off)</span> <a asp-action="RemoveCoupon" asp-route-coupon="@Model.coupon" class="btn btn-danger x-btn"> X </a></p>
+                                                }
+                                                else
+                                                {
+                                                    <p>No coupon applied.</p>
+                                                }
+                                                <p style="color: red;">@Model.message</p>
+                                                <p><span style="font-weight: bold;">Total: <span id="totalValue">@Model.price EUR</span></span></p>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <a class="btn btn-primary mx-2" style="" asp-action="MultiplePaymentStripe" asp-route-shoppingCart="@Model.shoppingCart" asp-controller="Payment">Pay by Card</a>
+                                                <a class="btn btn-success" asp-action="MultiplePaymentHand" asp-controller="Payment">Pay in Cash</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <br />
+        </div>
+    </div>
+
+    <script>
+        function IncreaseQuantity(productId) {
+            var quantity = "#" + productId;
+             $.ajax({
+                type: "POST",
+                url: "@Url.Action("IncreaseQuantity", "ShoppingCart", new {area ="User"})",
+                data: { productId: productId},
+                dataType: "text",
+                success: function (msg) {
+                    if (msg !== "false") {
+                        $(quantity).text(function (i, oldVal) {
+                            return parseInt(oldVal, 10) + 1;
+                        });
+                            console.log(msg);
+
+                        $('#totalValue').html(msg);
+                    } else if (msg === "false") {
+                       alert("Maximum number of items has already been reached.")
+                    } else {
+                        console.log("Testing.");
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+        }
+
+        function DecreaseQuantity(productId) {
+            var quantity = "#" + productId;
+             $.ajax({
+                type: "POST",
+                url: "@Url.Action("DecreaseQuantity", "ShoppingCart", new {area ="User"})",
+                data: { productId: productId},
+                dataType: "text",
+                success: function (msg) {
+                    if (msg !== "false") {
+                        $(quantity).text(function (i, oldVal) {
+                            return parseInt(oldVal, 10) - 1;
+                        });
+                        $('#totalValue').html(msg);
+
+                    } else if (msg === "false") {
+                       alert("Can't go below 1 item.")
+                    } else {
+                        console.log("Testing.");
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+        }
+    </script>
+

@@ -1,0 +1,76 @@
+﻿@model TechPetal_Lab.Models.Report
+@{
+    ViewData["Title"] = "Report";
+    var productImage = ViewBag.getProduct.DefaultImage;
+    var productId = ViewBag.getProduct.Id;
+    var webUserId = ViewBag.getWebUser.Id;
+
+    string encoded = Convert.ToBase64String(productImage);
+    string photo = string.Format("data:image/gif;base64,{0}", encoded);
+}
+
+<head>
+    <style>
+        .report {
+            background: rgba( 255, 255, 255, 0.35 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 15.0px );
+            -webkit-backdrop-filter: blur( 15.0px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
+        .title{
+            width:100%;
+            text-align:center;
+            display:flex;
+            justify-content:center;
+            margin: 1em 0px;
+            letter-spacing: 0.3em;
+
+        }
+        .reportSection {
+          background-color:#f7f7f7;
+          border: 1px solid darkgray;
+           margin: 1em 0px;
+        }
+      
+    </style>
+</head>
+<main style="min-height: 800px;" class="product-Report">
+    <h1 class="title">REPORT PRODUCT</h1>
+    <div class="container report ">
+        <br />
+        <div class="container deets">
+            <h4>@ViewData["Title"], @ViewBag.getProduct.Name</h4>
+            <div><img style="max-width: 300px; max-height: 300px;" src="@photo" /></div>
+            <p>@ViewBag.getProduct.Price EUR</p>
+            <p>@ViewBag.getProduct.Details</p>
+
+        </div>
+        <br /><br />
+        <div class="container reportSection">
+            <p>Here in this section u can report the details of the problem.</p>
+            <form asp-area="User" asp-controller="UserHome" asp-action="Reports">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input type="hidden" asp-for="ProductId" value="@productId" class="form-control" />
+                    <span asp-validation-for="ProductId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" asp-for="WebUserId" value="@webUserId" class="form-control" />
+                    <span asp-validation-for="WebUserId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReportDetails" class="control-label"></label>
+                    <input asp-for="ReportDetails" class="form-control"/>
+                    <span asp-validation-for="ReportDetails" class="text-danger"></span>
+                </div>
+
+                <div class="form-group d-flex justify-content-center">
+                    <input type="submit" value="Submit" class="btn btn-dark btn-lg" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+</main>

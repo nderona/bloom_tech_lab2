@@ -1,0 +1,29 @@
+﻿@model Product
+
+@{
+
+}
+
+<link href="~/css/paymentMethod.css" rel="stylesheet" />
+<div class="product-main">
+  @if (Model != null) {
+
+    string encoded = Convert.ToBase64String(Model.DefaultImage);
+    string photo = string.Format("data:image/gif;base64,{0}",encoded);
+    var price = (Model.Price - (Model.Price * (Model.Sale * (decimal) 0.01)));
+
+    <a asp-action="Product" asp-route-id="@Model.Id" asp-area="default" asp-controller="Home">
+      <img src="@photo" />
+    </a>
+    <div class="d-flex flex-column product-details">
+
+      <p><b>Currently trying to buy:</b> @Model.Name</p>
+      <h3>Price: @price EUR</h3>
+      <a class="btn btn-primary" asp-action="SinglePaymentStripe" asp-route-productId="@Model.Id">Pay with credit card</a>
+      <a class="btn btn-success" asp-action="SinglePaymentHand" asp-route-productId="@Model.Id">Pay with cash</a>
+    </div>
+  } else {
+    <h1>Couldn't find the product that you're trying to buy.</h1>
+  }
+
+</div>

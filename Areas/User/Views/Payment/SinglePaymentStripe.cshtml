@@ -1,0 +1,180 @@
+﻿@{
+    var productId = @ViewData["ProductId"];
+
+
+}
+
+<head>
+    <link href="~/css/Payment.css" rel="stylesheet" />
+</head>
+<script src="https://js.stripe.com/v3/"></script>
+<h1 style="width:100%; display:flex; justify-content:center; margin:1em 0px; letter-spacing:0.3em; background-color:#fefeff">SINGLE PAYMENT BY CARD</h1>
+<main>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-12">
+                <div class="card mx-auto">
+                    <p class="heading">PAYMENT DETAILS</p>
+                    <form class="card-details" id="payment-form" data-secret="@ViewData["ClientSecret"]">
+                        <div class="form-group mb-0">
+                            <p class="text-warning mb-0">City</p>  <input type="text" id="city" size="17" required placeholder="City" />
+                        </div>
+                        <div class="form-group">
+                            <p class="text-warning mb-0">Address 1</p>  <input type="text" id="line1" size="17" required placeholder="Address 1" />
+                        </div>
+                        <div class="form-group">
+                            <p class="text-warning mb-0">Address 2</p>  <input type="text" id="line2" size="17" required placeholder="Address 2" />
+                        </div>
+                        <div class="form-group">
+                            <p class="text-warning mb-0">Phone Number</p>  <input type="tel" id="phoneNumber" size="17" required placeholder="Phone Number" />
+                        </div>
+                        <div class="form-group pt-2">
+                            <div class="row d-flex">
+                                <div class="col-sm-12">
+                                    <div id="card-element">
+                                        <!-- Elements will create input elements here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- We'll put the error messages in this element -->
+                        <div id="card-errors" role="alert"></div>
+
+                        <button class="btn" style="color:white" id="card-button">Submit Payment</button>
+                        <p class="my-2 text-primary" id="successP" style="display:none">* Please wait while your transaction is being processed</p>
+                    </form>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<script>
+    var stripe = Stripe('pk_test_51J1sdwAhs74rsCWnF7HV7b7ll7LZlYXS9QJonE1r0V9rGs4SMfj9dMJfG2mlPrCVErXBao3vg4Swlum4BwDjf3R600NhGHO2IV');
+
+
+    var elements = stripe.elements();
+    var style = {
+        base: {
+            color: '#303238',
+            fontSize: '16px',
+            fontFamily: '"Open Sans", sans-serif',
+            fontSmoothing: 'antialiased',
+            '::placeholder': {
+                color: '#7e7e7e',
+            },
+        },
+        invalid: {
+            color: '#e5424d',
+            ':focus': {
+                color: '#303238',
+            },
+        },
+    };
+
+
+    var card = elements.create("card", { style: style });
+    card.mount("#card-element");
+    card.on('change', ({ error }) => {
+        let displayError = document.getElementById('card-errors');
+        if (error) {
+            displayError.textContent = error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+
+
+    var form = document.getElementById('payment-form');
+
+    form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var cityVal = $("#city").val();
+        var line1Val = $("#line1").val();
+        var line2Val = $("#line2").val();
+        var phoneVal = $("#phoneNumber").val();
+
+        if (cityVal === '' || cityVal == null) {
+            alert('City value cannot be empty');
+            return;
+        }
+        if (line1Val === '' || line1Val == null) {
+            alert('Adress 1 value cannot be empty');
+            return;
+        }
+        if (line2Val === '' || line2Val == null) {
+            alert('Adress 2 value cannot be empty');
+            return;
+        }
+        if (phoneVal === '' || phoneVal == null) {
+            alert('Phone value cannot be empty');
+            return;
+        }
+
+        document.getElementById("card-button").remove();
+        document.getElementById("successP").style.display = "block";
+
+        $.ajax({
+                type: "POST",
+                url: "@Url.Action("InStock")",
+                data: { id: '@productId'},
+                dataType: "text",
+                success: function (msg) {
+                    if (msg === "true") {
+                        stripe.confirmCardPayment(form.dataset.secret, {
+                            payment_method: {
+                                card: card,
+                                billing_details: {
+                                    address: {
+                                        city: cityVal,
+                                        line1: line1Val,
+                                        line2: line2Val,
+                                    },
+                                    phone: phoneVal,
+                                }
+                            }
+                        }).then(function (result) {
+                            if (result.error) {
+                                alert(result.error.message);
+                            } else {
+                                if (result.paymentIntent.status === 'succeeded') {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "@Url.Action("PostPurchase")",
+                                        data: { productId: '@productId', intent: result.paymentIntent},
+                                        dataType: "text",
+                                        success: function (msg) {
+                                            if (msg === "true") {
+                                                console.log("TEST");
+                                                window.location.href = "/User/Payment/SuccessfulOrder";
+                                            } else if (msg === "false") {
+                                                alert('Something went wrong, please contact support')
+                                            } else {
+                                                console.log("Testingu.");
+                                            }
+                                        },
+                                        error: function (req, status, error) {
+                                            console.log(msg);
+                                        }
+                                    });
+                                console.log("Successful purchase.");
+                                }
+                            }
+                        });
+                    } else if (msg === "false") {
+                        alert("Product is not in stock.");
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+    });
+</script>
