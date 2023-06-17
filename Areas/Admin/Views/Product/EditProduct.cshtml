@@ -1,0 +1,72 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "EditProduct";
+    var Categories = (List<SelectListItem>)ViewBag.Categories;
+}
+
+<main>
+    <div class="container-fluid" style="margin-top: 50px;">
+        <h1 class="title">EDIT PRODUCT</h1>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4">
+                <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Details" class="control-label"></label>
+                        <textarea asp-for="Details" class="form-control" required rows="8"></textarea>
+                        <span asp-validation-for="Details" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control" required />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Quantity" class="control-label"></label>
+                        <input asp-for="Quantity" class="form-control" required />
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Sale" class="control-label"></label>
+                        <input asp-for="Sale" class="form-control" required />
+                        <span asp-validation-for="Sale" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Bought" class="control-label"></label>
+                        <input asp-for="Bought" class="form-control" required />
+                        <span asp-validation-for="Bought" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AddedDate" class="control-label"></label>
+                        <input asp-for="AddedDate" class="form-control" required />
+                        <span asp-validation-for="AddedDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Brand" class="control-label"></label>
+                        <input asp-for="Brand" class="form-control" required />
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+
+                        <select asp-for="SelectedCategory" asp-items="@Categories" class="form-control" required>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group d-flex justify-content-center">
+                        <input type="submit" value="Edit"  class="btn btn-dark btn-lg" asp-route-productId="@Model.Id" asp-route-defaultImage="@ViewBag.DefaultImage" />
+                        <a class=" mx-3 btn btn-danger btn-lg" asp-controller="Product" asp-action="Index">Cancel</a>
+                    </div>
+                
+                </form>
+            </div>
+        </div>
+
+    </div>
+</main>

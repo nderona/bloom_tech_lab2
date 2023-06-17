@@ -1,0 +1,139 @@
+﻿<head>
+  <link rel="stylesheet" href="~/css/manageProducts.css"/>
+</head>
+
+<!--model List<Product>-->
+@model PaginatedList<TechPetal_Lab.Models.Product>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <main>
+        <div class="container-fluid" style="margin-top: 50px;">
+            <h1 class="title">MANAGE PRODUCTS</h1>
+
+            <div class="container" id="searchi">
+                <form asp-controller="Product" asp-action="SearchProducts" method="post" >
+                    <div class="d-flex">
+                        <input list="browsers" class="form-control" id="ProductName" name="search" autocomplete="off" />
+
+                        <datalist id="browsers">
+                        </datalist>
+                        <input class="btn btn-dark" type="submit" name="submit" value="Search" />
+                    </div>
+
+        
+                </form>
+            </div>
+
+            <div class="row image-grid">
+
+
+
+                @foreach (var product in Model) {
+                    string encoded = Convert.ToBase64String(product.DefaultImage);
+                    string photo = string.Format("data:image/gif;base64,{0}", encoded);
+
+                    <div class="item">
+                        <a asp-controller="Product" asp-action="ProductDetails" asp-route-productId="@product.Id">
+                            <img src="@photo" alt="Alternate Text" style=" width: 100%; height: 230px; margin-bottom: 25px; object-fit: scale-down; " />
+                        </a>
+                        <p></p>
+
+
+
+
+                        <p>@product.Name</p>
+                        <p>@product.AddedDate</p>
+                        <p>@product.Price</p>
+
+                     
+                            <a asp-controller="Product" asp-action="EditProduct" asp-route-productId="@product.Id" class="btn btn-dark">Edit</a>
+                      
+                            <a asp-controller="Product" asp-action="DeleteProduct" asp-route-productId="@product.Id" class="btn btn-danger">Delete</a>
+                      
+
+                    </div>
+                }
+
+
+                @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }
+
+
+
+            </div>
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               class="btn btn-dark @prevDisabled">
+                Previous
+            </a>
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               class="btn btn-dark @nextDisabled">
+                Next
+            </a>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+
+        var typingTimer;                //timer identifier
+        var doneTypingInterval = 1000;  //time in ms, 5 second for example
+        var $input = $('#ProductName');
+
+        //on keyup, start the countdown
+        $input.on('keyup', function () {
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(doneTyping, doneTypingInterval);
+            console.log('Key up time');
+        });
+
+        //on keydown, clear the countdown
+        $input.on('keydown', function () {
+            clearTimeout(typingTimer);
+            console.log('Key down time');
+        });
+
+        //user is "finished typing," do something
+        function doneTyping() {
+            var e = document.getElementById('ProductName').value;
+            jQuery.ajax({
+
+                type: "GET",
+                url: '/api/Products?search=' + e,
+                data: { search: e },
+
+                contentType: "application/json; charset=utf-8",
+                async: true,
+                dataType: "json",
+                success: function (data) {
+                    //alert(JSON.stringify(data));
+                    var datalist = $("#browsers");
+                    $("#browsers").find('option').remove();
+                    $.each(data, function (i, item) {
+
+                        var option = document.createElement('option');
+                        option.value = item;
+                        option.innerText = item;
+                        datalist.append(option);
+
+
+                    }); //End of foreach Loop
+                    isbusy = false;
+                    $(window).data('ajaxready', true);
+                }, //End of AJAX Success function
+
+                failure: function (data) {
+                  
+                    isbusy = false;
+                }, //End of AJAX failure function
+                error: function (data) {
+                   
+                    isbusy = false;
+                } //End of AJAX error function
+
+            });
+        }
+
+    </script>

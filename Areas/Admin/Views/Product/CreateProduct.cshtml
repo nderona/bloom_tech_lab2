@@ -1,0 +1,81 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "CreateProduct";
+    var Categories = (List<SelectListItem>)ViewBag.Categories;
+}
+
+<main>
+    <div class="container-fluid" style="margin-top: 50px;">
+        <h1 class="title">ADD NEW PRODUCT</h1>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4">
+                <form asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" required/>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Details" class="control-label"></label>
+                        <textarea asp-for="Details" class="form-control" required rows="8"></textarea>
+                        <span asp-validation-for="Details" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control" required/>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Quantity" class="control-label"></label>
+                        <input asp-for="Quantity" class="form-control" required/>
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Sale" class="control-label"></label>
+                        <input asp-for="Sale" class="form-control" required/>
+                        <span asp-validation-for="Sale" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Bought" class="control-label"></label>
+                        <input asp-for="Bought" class="form-control" required/>
+                        <span asp-validation-for="Bought" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AddedDate" class="control-label"></label>
+                        <input asp-for="AddedDate" class="form-control" required/>
+                        <span asp-validation-for="AddedDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Brand" class="control-label"></label>
+                        <input asp-for="Brand" class="form-control" required/>
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+
+                        <select asp-for="SelectedCategory" asp-items="@Categories" class="form-control" required>
+                        </select>
+
+                    </div>
+
+                     <div class="form-group">
+                        <label asp-for="DefaultPhoto" class="control-label"></label>
+                        <input asp-for="DefaultPhoto" class="form-control pb-5 pt-3" required/>
+                        <span asp-validation-for="DefaultPhoto" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Images" class="control-label"></label>
+                        <input asp-for="Images" class="form-control pb-5 pt-3" />
+                        <span asp-validation-for="Images" class="text-danger" required></span>
+                    </div>
+
+                    <div class="form-group d-flex justify-content-center">
+                        <input type="submit" value="Create" class="btn btn-dark btn-lg" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</main>
