@@ -1,0 +1,46 @@
+﻿@model TechPetal_Lab.Models.Report
+
+@{
+    ViewData["Title"] = "Show Report Details";
+    //converts the crypted image to string and adds to the photo var for accessing it later
+    string encoded = Convert.ToBase64String(Model.Product.DefaultImage);
+    string photo = string.Format("data:image/gif;base64,{0}", encoded);
+}
+
+<style>
+    .part {
+        background-color: #f2f2f2;
+        margin: 2em 0px;
+        border: 2px solid #333;
+        padding: 1em;
+    }
+</style>
+<main>
+    <div class="container my-4">
+        <h1>@ViewData["Title"]</h1>
+
+        <div class="container-fluid">
+          
+            <div class="container part">
+
+                <h3>Reported by:</h3>
+                <p>Full name: @Model.WebUser.Name @Model.WebUser.Surname</p>
+                <p>Email: @Model.WebUser.Email</p>
+            </div>
+
+            <div class="container part">
+                <h3>Reported product: </h3>
+                <img src="@photo" alt="Alternate Text" width="300px" />
+                <h4>Product Title: @Model.Product.Name</h4>
+            <p class="my-2"><b>Product details:</b> @Model.Product.Details</p>
+   
+            </div>
+
+            <div class="container part">
+                <h3>Report description</h3>
+                <p>@Model.ReportDetails</p>
+            </div>
+
+        </div>
+    </div>
+</main>
