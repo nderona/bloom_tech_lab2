@@ -1,0 +1,41 @@
+﻿@model List<Contact>
+
+
+<div class="container my-4">
+    <h1 class="title"> MANAGE MESSAGES</h1>
+    <table id="messages" class="table table-hover table-bordered" style="width:100%">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Message</th>
+                <th scope="col">Manage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model) {
+
+                <tr>
+                    <td scope="row">@contact.FullName</td>
+                    <td>@contact.Email</td>
+                    <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width:30ch">@contact.Message</td>
+                    <td>
+                        <a class="btn btn-info" asp-controller="ManageMessages" asp-action="ViewMessage" asp-route-MessageId="@contact._id">VIEW ALL</a>
+
+                        <a class="btn btn-danger" asp-controller="ManageMessages" asp-action="DeleteMessage" asp-route-MessageId="@contact._id">DELETE</a>
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#messages').DataTable();
+    });
+</script>

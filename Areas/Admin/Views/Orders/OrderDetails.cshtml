@@ -1,0 +1,44 @@
+﻿@model Purchase
+
+    <head>
+        <style>
+            .part{
+                background-color: #f2f2f2;
+                margin: 2em 0px;
+                border: 2px solid #333;
+                padding: 1em;
+            }
+        </style>
+    </head>
+
+<div class="container my-4">
+    <h1>Order details: </h1>
+    <div class="container part">
+        <h3>User</h3>
+
+        <p>Fullname: @Model.WebUser.Name @Model.WebUser.Surname </p>
+        <p>Email: @Model.WebUser.Email</p>
+    </div>
+   
+    <div class="container part">
+        <h3>Product</h3>
+
+        <p>Product name: @Model.Product.Name</p>
+        <p>Product details: @Model.Product.Details</p>
+    </div>
+
+    <div class="container part">
+        <h3>Address</h3>
+        <p>City: @Model.City</p>
+        <p>Address 1: @Model.Address1</p>
+        <p>Address 2: @Model.Address2</p>
+        <p>Date of purchase: @Model.DateOfPurchase</p>
+        <p>Phone number: @Model.PhoneNumber</p>
+    </div>
+
+    <div class="container part">
+        <h3>Quantity and payment</h3>
+        <p>Quantity: @Model.Quantity</p>
+        <p>Payment Method: @Model.PaymentMethod</p>
+    </div>
+</div>

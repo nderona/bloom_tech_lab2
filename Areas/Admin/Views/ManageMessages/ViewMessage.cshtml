@@ -1,0 +1,13 @@
+﻿@model Contact
+
+    <div class="container-fluid" style="margin-top: 50px;">
+        <h1 class="title">MESSAGE</h1>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4">
+                <span>
+                    <small class="font-weight-bold text-primary" style="font-size:20px;">@Model.Email</small></span>
+                        <h4>@Model.Message</h4>
+                        <a class="btn btn-secondary" asp-controller="ManageMessages" asp-action="Index"><i class="fa fa-arrow-left"></i>Go back</a>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,94 @@
+﻿@model PaginatedList<TechPetal_Lab.Models.Purchase>
+
+<main>
+
+
+    <!--Get the data of the title and displays it on the page-->
+    @ViewData["Title"]
+
+    <div class="container my-4">
+        <h1 class="title"> MANAGE ORDERS</h1>
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                    <input type="submit" value="Search"  class="btn btn-dark" /> |
+                    <a asp-action="Index" >Back to Full List</a>
+                </p>
+            </div>
+        </form>
+        <table class="table table-hover table-bordered " style="width:100%">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Product
+                    </th>
+                  
+                    <th>
+                        Email
+                    </th>
+                
+                    <th>
+                        Payment Method
+                    </th>
+                    <th>
+                        Details
+                    </th>
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <!--Loops threw the model to get the values from database to display it on the page-->
+                @foreach (var purchase in Model)
+                {
+                <tr>
+                    <td style="margin-left:10px;">@purchase.Product.Name</td>
+                    <td style="margin-left:10px;">@purchase.WebUser.Email</td>
+                    <td style="margin-left:10px;">@purchase.PaymentMethod</td>
+                    <td><a  asp-controller="Orders"asp-action="OrderDetails" asp-route-purchaseId="@purchase.Id">Details</a></td>
+                    <td style="margin-left:10px;">
+
+                        @if (purchase.Received == false)
+                        {
+                            <a asp-controller="Orders" asp-action="ConfirmArrival" asp-route-purchaseId="@purchase.Id">Arrived</a>
+
+
+                        }
+                        else
+                        {
+                            <label>Recieved</label>
+
+                        }
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-controller="Orders" asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+            class="btn btn-dark @prevDisabled">
+            Previous
+        </a>
+        <a asp-controller="Orders" asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+            class="btn btn-dark @nextDisabled">
+            Next
+        </a>
+    </div>
+
+</main>
+
+
