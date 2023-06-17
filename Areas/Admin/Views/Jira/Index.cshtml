@@ -1,0 +1,43 @@
+﻿@model TechPetal_Lab.Areas.Admin.Models.JiraModel
+
+@{
+    var types = ViewBag.typeList;
+    var priorities = ViewBag.priorityList;
+}
+
+    <main>
+        <div class="container" style="margin-top: 50px;">
+            <h1 class="title">ADD NEW TICKET</h1>
+            <div class="d-flex justify-content-center">
+                <form style= "width:50%;" asp-action="AddToJira" method="post">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Summary</label>
+                        <input asp-for="@Model.fields.summary" class="form-control" id="formGroupExampleInput" placeholder="Summary">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Issue type</label>
+                        <select asp-for="@Model.fields.issuetype.name" class="form-control"
+                                asp-items="@(new SelectList(types,"Type1","Type2"))">
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Issue Priority</label>
+                        <select asp-for="@Model.fields.priority.id" class="form-control"
+                                asp-items="@(new SelectList(priorities,"id","name"))">
+                        </select>
+
+
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Description</label>
+                        <textarea rows="6" cols="50" asp-for="@Model.fields.description.content[0].content[0].text" class="form-control" id="formGroupExampleInput2" placeholder="Description"></textarea>
+                    </div>
+
+                    <div class="form-group d-flex justify-content-center">
+                        <input type="submit" class="btn btn-dark" id="formGroupExampleInput2" placeholder="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+</main>

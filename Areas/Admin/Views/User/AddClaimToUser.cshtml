@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "AddClaimToUser";
+    var UserClaims = ViewBag.UserClaims;
+}
+
+
+<main>
+    <div class="container">
+        <div class="container">
+            <form asp-action="AddClaimToUser" method="post" style="display:flex; flex-direction:column;  align-items:center">
+
+                <div class="container" width="70%">
+                    <h1 class="title"> ADD CLAIM TO USER</h1>
+                </div>
+                <div>
+                    <label style="font-size:20px" for="formGroupExampleInput">Type</label>
+                    <input class="form-control" style="width:400px; height:50px; border: 1px solid #202528" type="text" name="type" /><br />
+                </div>
+                <div>
+                    <label style="font-size:20px" for="formGroupExampleInput">Value</label>
+                    <input class="form-control" style="width:400px; height:50px; border: 1px solid #202528" type="text" name="value" /><br />
+                </div>
+                <div>
+                    <input type="hidden" name="UserId" value="@ViewBag.UserId" />
+                    <input type="submit" name="submit" value="Create Claim" class="btn btn-dark" />
+                </div>
+            </form>
+        </div>
+        <div class="container" style="width:70%">
+            <h1 class="title">MANAGE USER CLAIMS</h1>
+            <table class="table table-striped text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var claim in UserClaims)
+                    {
+                        <tr>
+                            <td>@claim.Type</td>
+                            <td>@claim.Value</td>
+                            <td><a class="btn btn-danger" asp-area="Admin" asp-controller="User" asp-action="DeleteClaimFromUser" asp-route-type="@claim.Type" asp-route-value="@claim.Value" asp-route-UserId="@ViewBag.UserId">Remove Claim</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+        
+        
+        
+       
+</main>
+
+

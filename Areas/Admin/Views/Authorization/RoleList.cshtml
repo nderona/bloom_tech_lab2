@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Add claim to Role";
+    var roles = ViewBag.roles;
+}
+<main>
+    <div class="container">
+        <div class="container" style="width:70%">
+            <h1 class="title">AVAILABLE USER COUPONS</h1>
+            <table class="table table-striped text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Add Claim</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var role in roles)
+                    {
+                        <tr>
+                            <td>@role.Name</td>
+                            <td><a class="btn btn-primary"  asp-action="AddClaimToRole" asp-route-roleName="@role.Name">Add Claim</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+

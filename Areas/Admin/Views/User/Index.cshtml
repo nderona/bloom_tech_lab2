@@ -1,0 +1,105 @@
+﻿@model List<WebUser>
+
+<head>
+    <style>
+        h3 {
+            padding: 5px;
+            font-family: Georgia, serif;
+            font-size: 25px;
+            letter-spacing: 2px;
+            word-spacing: 2px;
+            color: #000000;
+            font-weight: normal;
+            text-decoration: none;
+            font-style: normal;
+            font-variant: normal;
+            text-transform: none;
+        }
+    </style>
+</head>
+<main>
+
+    <div class="container my-4">
+        <h1 class="title"> MANAGE USERS</h1>
+        <table id="example" class="table table-hover table-bordered " style="width:100%">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Surname</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Details</th>
+                    <th scope="col">Manage</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model) {
+
+                    <tr>
+                        <td scope="row">@user.Name</td>
+                        <td>@user.Surname</td>
+                        <td>@user.Email</td>
+                        <td><a class="btn btn-secondary" data-toggle="modal" data-target="#@user.Id" data-id="@user.Id">Details</a>
+                            <div class="modal fade" id="@user.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="container">
+                                                <h3>Name: @user.Name</h3>
+                                            </div>
+                                            <div class="container">
+                                                <h3>Surname: @user.Surname</h3>
+                                            </div>
+                                            <div class="container">
+                                                <h3>Email: @user.Email</h3>
+                                            </div>
+                                            <div class="container">
+                                                <h3>City: @user.City</h3>
+                                            </div>
+                                            <div class="container">
+                                                <h3>Date of Birth: @user.DateOfBirth</h3>
+                                            </div>
+                                            <div class="container">
+                                                <h3>Awarded: @user.Awarded</h3>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </td>
+                       
+                        <td>
+                            <a class="btn-primary btn" asp-action="EditRole" asp-route-UserId="@user.IdentityUser.Id">Edit Role</a>
+                            <a class="btn btn-light" asp-action="AddClaimToUser" asp-route-UserId="@user.IdentityUser.Id">Add Claim</a>
+                            @if (user.Locked) {
+                                <a asp-action="UnlockUser" asp-controller="User" asp-route-WebUserId="@user.Id" class="btn btn-dark">Unlock User</a>
+                            } else {
+                                <a asp-action="LockUser" asp-controller="User" asp-route-WebUserId="@user.Id" class="btn btn-danger">Lock User</a>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>

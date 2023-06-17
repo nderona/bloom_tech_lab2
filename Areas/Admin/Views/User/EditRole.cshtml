@@ -1,0 +1,56 @@
+﻿@model EditRoleViewModel
+
+@{
+    var roles = ViewBag.roles;
+}
+
+
+<main>
+    <div class="container-fluid" style="margin-top: 50px;">
+        <div class="small text-black" style="font-size:25px"><i class="fas fa-arrow-left"></i><a asp-action="Index" style="color:black"> Go back</a></div>
+        <form method="post">
+            <h1 class="title">ADD USER ROLE</h1>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-3">
+
+                    <select class="custom-select col-md-8" asp-for="@Model.RoleId" asp-items="@roles">
+                    </select>
+                    <input type="submit" class="btn btn-dark" name="name" value="ADD" />
+                </div>
+            </div>
+        </form>
+
+        <div class="container my-5" style="width:50%">
+            <h1 class="title">MANAGE USER ROLES</h1>
+            <table class="table table-striped text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Role</th>
+                        <th scope="col">Remove</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.UserRoles) {
+                    <tr>
+                        <td>@item</td>
+                        <td><a asp-action="RemoveRole" asp-route-UserId="@Model.UserId" asp-route-RoleName="@item" class="btn btn-danger">Remove Role</a></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var RoleClaims = ViewBag.RoleClaims;
+}
+
+
+<div class="container" style="width:70%">
+    <div class="container">
+        <form asp-action="AddClaimToRole" method="post" style="display:flex; flex-direction:column;  align-items:center">
+            <input type="hidden" name="roleName" value="@ViewBag.Role" />
+            <div class="container" width="70%">
+                <h1 class="title"> ADD CLAIM TO ROLE</h1>
+            </div>
+            <div>
+                <label style="font-size:20px" for="formGroupExampleInput">Type</label>
+                <input class="form-control" style="width:400px; height:50px; border: 1px solid #202528" type="text" name="type" /><br />
+            </div>
+            <div>
+                <label style="font-size:20px" for="formGroupExampleInput">Value</label>
+                <input class="form-control" style="width:400px; height:50px; border: 1px solid #202528" type="text" name="value" /><br />
+            </div>
+            <div>
+                <input type="hidden" name="UserId" value="@ViewBag.UserId" />
+                <input type="submit" name="submit" value="Create Claim" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <h1 class="title">MANAGE ROLE CLAIMS</h1>
+    <table class="table table-striped text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Value</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var claim in RoleClaims)
+            {
+                <tr>
+                    <td>@claim.Type</td>
+                    <td>@claim.Value</td>
+                    <td><a class="btn btn-danger" asp-area="Admin" asp-controller="Authorization" asp-action="DeleteClaimFromRole" asp-route-type="@claim.Type" asp-route-value="@claim.Value" asp-route-roleName="@ViewBag.Role">Remove Claim</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

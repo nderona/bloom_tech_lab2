@@ -1,0 +1,52 @@
+﻿@model TechPetal_Lab.Models.Coupon
+
+@{
+    ViewData["Title"] = "Edit Coupons";
+}
+
+<main>
+    <div class="container-fluid" style="margin-top: 50px;">
+    <h1 class="title">EDIT PRODUCT</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <form asp-action="EditCoupon">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Discount" class="control-label"></label>
+                    <input asp-for="Discount" class="form-control" />
+                    <span asp-validation-for="Discount" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Public" /> @Html.DisplayNameFor(model => model.Public)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreatedDate" class="control-label"></label>
+                    <input asp-for="CreatedDate" class="form-control" />
+                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ExpireDate" class="control-label"></label>
+                    <input asp-for="ExpireDate" class="form-control" />
+                    <span asp-validation-for="ExpireDate" class="text-danger"></span>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <input type="submit" value="Save" class="btn btn-dark btn-lg" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+    </div>
+</main>

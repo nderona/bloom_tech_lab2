@@ -1,0 +1,48 @@
+﻿@model List<TechPetal_Lab.Models.Coupon>
+
+@{
+    ViewData["Title"] = "List Coupons";
+}
+
+<main>
+ 
+    <div class="container my-4">
+        <h1 class="title"> MANAGE USERS</h1>
+        <table id="example" class="table table-hover table-bordered " style="width:100%">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Discount</th>
+                    <th>Public</th>
+                    <th>Created Date</th>
+                    <th>Expire Date</th>
+                    <th>Manage</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var coupons in Model) {
+
+                <tr>
+                    <td>@coupons.Name</td>
+                    <td>@coupons.Discount</td>
+                    <td>@coupons.Public</td>
+                    <td>@coupons.CreatedDate</td>
+                    <td>@coupons.ExpireDate</td>
+                    <td><a class="btn btn-primary" asp-controller="Coupon" asp-action="EditCoupon" asp-route-id="@coupons.Id">Edit</a></td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+</main>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>

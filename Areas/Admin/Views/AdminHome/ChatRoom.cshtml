@@ -1,0 +1,68 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/adminChatRoom.css" />
+
+    <style>
+        .container{
+
+            background-color:white;
+        }
+
+        #chatArea{
+            background-color:whitesmoke;
+            height: 500px;
+            overflow-y: scroll;
+        }
+
+        #messageInput {
+         
+     
+        }
+
+
+    </style>
+</head>
+
+<main>
+    <h1 class="title">CHAT ROOM</h1>
+
+
+    <div class="container my-5" id="reply">
+
+
+        <div class="container d-flex justify-content-end">
+            <h4 id="numOfWaitingPeople">0 users waiting</h4>
+        </div>
+
+
+        <div class="container">
+            <div id="chatArea">
+
+
+
+
+            </div>
+        </div>
+        <div class="container ">
+            <div class="form-group ">
+
+                <input class="form-control" placeholder="Write a reply..." id="messageInput"  />
+
+            </div>
+            <div class="d-flex justify-content-center">
+                <input type="submit" name="submit" value="Send" id="SendMessageButton" class="btn btn-dark m-1" />
+                <input type="submit" name="clearChat" value="End chat" class="btn btn-danger m-1" id="EndChat" />
+            </div>
+            
+        </div>
+
+
+
+
+    </div>
+</main>
+
+
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+
+<script src="~/js/signalr/adminChat.js"></script>
